@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 6.0.2 (Python 3.10.4 on win32)" generated="20230208 22:44:08.352" rpa="false" schemaversion="3">
+<suite id="s1" name="GET HealthCheck" source="C:\Script\restful_booker_automation\ping\GET_HealthCheck.robot">
+<test id="s1-t1" name="Happy Test" line="10">
+<kw name="GET" library="RequestsLibrary">
+<var>${response}</var>
+<arg>${http_server}/ping</arg>
+<doc>Sends a GET request.</doc>
+<msg timestamp="20230208 22:44:09.073" level="INFO">GET Request : url=https://restful-booker.herokuapp.com/ping 
+ path_url=/ping 
+ headers={'User-Agent': 'python-requests/2.28.2', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20230208 22:44:09.073" level="INFO">GET Response : url=https://restful-booker.herokuapp.com/ping 
+ status=201, reason=Created 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Content-Type': 'text/plain; charset=utf-8', 'Content-Length': '7', 'Etag': 'W/"7-rM9AyJuqT6iOan/xHh+AW+7K/T8"', 'Date': 'Thu, 09 Feb 2023 03:44:09 GMT', 'Via': '1.1 vegur'} 
+ body=Created 
+ </msg>
+<msg timestamp="20230208 22:44:09.073" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20230208 22:44:08.493" endtime="20230208 22:44:09.073"/>
+</kw>
+<kw name="Status Should Be" library="RequestsLibrary">
+<arg>CREATED</arg>
+<arg>${response}</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" starttime="20230208 22:44:09.073" endtime="20230208 22:44:09.073"/>
+</kw>
+<tag>CP001 - Validar que el método responda OK</tag>
+<status status="PASS" starttime="20230208 22:44:08.493" endtime="20230208 22:44:09.073"/>
+</test>
+<doc>Pruebas automatizadas Ping_HealthCheck</doc>
+<status status="PASS" starttime="20230208 22:44:08.367" endtime="20230208 22:44:09.073"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="1" fail="0" skip="0">CP001 - Validar que el método responda OK</stat>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="GET HealthCheck">GET HealthCheck</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

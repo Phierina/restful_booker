@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 6.0.2 (Python 3.10.4 on win32)" generated="20230208 22:29:10.244" rpa="false" schemaversion="3">
+<suite id="s1" name="PUT UpdateBooking" source="C:\Script\restful_booker_automation\booking\PUT_UpdateBooking.robot">
+<test id="s1-t1" name="Happy Test 1" line="10">
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${headers_token}</var>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20230208 22:29:10.369" level="INFO">${headers_token} = {'Content-Type': 'application/json'}</msg>
+<status status="PASS" starttime="20230208 22:29:10.369" endtime="20230208 22:29:10.369"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${request_token}</var>
+<arg>username=admin</arg>
+<arg>password=password123</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20230208 22:29:10.369" level="INFO">${request_token} = {'username': 'admin', 'password': 'password123'}</msg>
+<status status="PASS" starttime="20230208 22:29:10.369" endtime="20230208 22:29:10.369"/>
+</kw>
+<kw name="POST" library="RequestsLibrary">
+<var>${response_token}</var>
+<arg>${http_server}/auth</arg>
+<arg>json=${request_token}</arg>
+<arg>headers=${headers_token}</arg>
+<doc>Sends a POST request.</doc>
+<msg timestamp="20230208 22:29:11.059" level="INFO">POST Request : url=https://restful-booker.herokuapp.com/auth 
+ path_url=/auth 
+ headers={'User-Agent': 'python-requests/2.28.2', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '48'} 
+ body=b'{"username": "admin", "password": "password123"}' 
+ </msg>
+<msg timestamp="20230208 22:29:11.059" level="INFO">POST Response : url=https://restful-booker.herokuapp.com/auth 
+ status=200, reason=OK 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '27', 'Etag': 'W/"1b-rdzoFYjYDOzAGU/Z99bQiNsKDNk"', 'Date': 'Thu, 09 Feb 2023 03:29:11 GMT', 'Via': '1.1 vegur'} 
+ body={"token":"e0ee2f2ac16a28b"} 
+ </msg>
+<msg timestamp="20230208 22:29:11.059" level="INFO">${response_token} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20230208 22:29:10.369" endtime="20230208 22:29:11.059"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${json_object}</var>
+<arg>${response_token.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230208 22:29:11.059" level="INFO">${json_object} = {'token': 'e0ee2f2ac16a28b'}</msg>
+<status status="PASS" starttime="20230208 22:29:11.059" endtime="20230208 22:29:11.059"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${token}</var>
+<arg>${json_object['token']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230208 22:29:11.059" level="INFO">${token} = e0ee2f2ac16a28b</msg>
+<status status="PASS" starttime="20230208 22:29:11.059" endtime="20230208 22:29:11.059"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<arg>Accept=application/json</arg>
+<arg>Cookie=token=${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20230208 22:29:11.075" level="INFO">${headers} = {'Content-Type': 'application/json', 'Accept': 'application/json', 'Cookie': 'token=e0ee2f2ac16a28b'}</msg>
+<status status="PASS" starttime="20230208 22:29:11.059" endtime="20230208 22:29:11.075"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${bookingdates}</var>
+<arg>checkin=2021-02-05</arg>
+<arg>checkout=2022-03-20</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20230208 22:29:11.075" level="INFO">${bookingdates} = {'checkin': '2021-02-05', 'checkout': '2022-03-20'}</msg>
+<status status="PASS" starttime="20230208 22:29:11.075" endtime="20230208 22:29:11.075"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${request}</var>
+<arg>firstname=Ana</arg>
+<arg>lastname=Ruiz</arg>
+<arg>totalprice=111</arg>
+<arg>depositpaid=true</arg>
+<arg>bookingdates=${bookingdates}</arg>
+<arg>additionalneeds=Breakfast</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20230208 22:29:11.075" level="INFO">${request} = {'firstname': 'Ana', 'lastname': 'Ruiz', 'totalprice': '111', 'depositpaid': 'true', 'bookingdates': {'checkin': '2021-02-05', 'checkout': '2022-03-20'}, 'additionalneeds': 'Breakfast'}</msg>
+<status status="PASS" starttime="20230208 22:29:11.075" endtime="20230208 22:29:11.075"/>
+</kw>
+<kw name="PUT" library="RequestsLibrary">
+<var>${response}</var>
+<arg>${http_server}/booking/3</arg>
+<arg>json=${request}</arg>
+<arg>headers=${headers}</arg>
+<doc>Sends a PUT request.</doc>
+<msg timestamp="20230208 22:29:11.577" level="INFO">PUT Request : url=https://restful-booker.herokuapp.com/booking/3 
+ path_url=/booking/3 
+ headers={'User-Agent': 'python-requests/2.28.2', 'Accept-Encoding': 'gzip, deflate', 'Accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Cookie': 'token=e0ee2f2ac16a28b', 'Content-Length': '185'} 
+ body=b'{"firstname": "Ana", "lastname": "Ruiz", "totalprice": "111", "depositpaid": "true", "bookingdates": {"checkin": "2021-02-05", "checkout": "2022-03-20"}, "additionalneeds": "Breakfast"}' 
+ </msg>
+<msg timestamp="20230208 22:29:11.577" level="INFO">PUT Response : url=https://restful-booker.herokuapp.com/booking/3 
+ status=200, reason=OK 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '167', 'Etag': 'W/"a7-Gy8qHUfYugpZQtHC9S5lQWNyCL0"', 'Date': 'Thu, 09 Feb 2023 03:29:11 GMT', 'Via': '1.1 vegur'} 
+ body={"firstname":"Ana","lastname":"Ruiz","totalprice":111,"depositpaid":true,"bookingdates":{"checkin":"2021-02-05","checkout":"2022-03-20"},"additionalneeds":"Breakfast"} 
+ </msg>
+<msg timestamp="20230208 22:29:11.577" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20230208 22:29:11.075" endtime="20230208 22:29:11.577"/>
+</kw>
+<kw name="Status Should Be" library="RequestsLibrary">
+<arg>OK</arg>
+<arg>${response}</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" starttime="20230208 22:29:11.577" endtime="20230208 22:29:11.577"/>
+</kw>
+<tag>CP001 - Validar que el método responda OK</tag>
+<status status="PASS" starttime="20230208 22:29:10.369" endtime="20230208 22:29:11.577"/>
+</test>
+<test id="s1-t2" name="Happy Test 2" line="25">
+<kw name="GET" library="RequestsLibrary">
+<var>${response}</var>
+<arg>${http_server}/booking/3</arg>
+<doc>Sends a GET request.</doc>
+<msg timestamp="20230208 22:29:12.095" level="INFO">GET Request : url=https://restful-booker.herokuapp.com/booking/3 
+ path_url=/booking/3 
+ headers={'User-Agent': 'python-requests/2.28.2', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20230208 22:29:12.095" level="INFO">GET Response : url=https://restful-booker.herokuapp.com/booking/3 
+ status=200, reason=OK 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '167', 'Etag': 'W/"a7-Gy8qHUfYugpZQtHC9S5lQWNyCL0"', 'Date': 'Thu, 09 Feb 2023 03:29:12 GMT', 'Via': '1.1 vegur'} 
+ body={"firstname":"Ana","lastname":"Ruiz","totalprice":111,"depositpaid":true,"bookingdates":{"checkin":"2021-02-05","checkout":"2022-03-20"},"additionalneeds":"Breakfast"} 
+ </msg>
+<msg timestamp="20230208 22:29:12.105" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20230208 22:29:11.577" endtime="20230208 22:29:12.105"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${json_object}</var>
+<arg>${response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230208 22:29:12.105" level="INFO">${json_object} = {'firstname': 'Ana', 'lastname': 'Ruiz', 'totalprice': 111, 'depositpaid': True, 'bookingdates': {'checkin': '2021-02-05', 'checkout': '2022-03-20'}, 'additionalneeds': 'Breakfast'}</msg>
+<status status="PASS" starttime="20230208 22:29:12.105" endtime="20230208 22:29:12.105"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${firstname}</var>
+<arg>${json_object['firstname']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230208 22:29:12.105" level="INFO">${firstname} = Ana</msg>
+<status status="PASS" starttime="20230208 22:29:12.105" endtime="20230208 22:29:12.105"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${firstname}</arg>
+<arg>Ana</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230208 22:29:12.105" endtime="20230208 22:29:12.105"/>
+</kw>
+<tag>CP002 - Validar que se hayan realizado los cambios en el campo "firstname"</tag>
+<status status="PASS" starttime="20230208 22:29:11.577" endtime="20230208 22:29:12.105"/>
+</test>
+<test id="s1-t3" name="Happy Test 3" line="32">
+<kw name="GET" library="RequestsLibrary">
+<var>${response}</var>
+<arg>${http_server}/booking/3</arg>
+<doc>Sends a GET request.</doc>
+<msg timestamp="20230208 22:29:12.691" level="INFO">GET Request : url=https://restful-booker.herokuapp.com/booking/3 
+ path_url=/booking/3 
+ headers={'User-Agent': 'python-requests/2.28.2', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20230208 22:29:12.691" level="INFO">GET Response : url=https://restful-booker.herokuapp.com/booking/3 
+ status=200, reason=OK 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '167', 'Etag': 'W/"a7-Gy8qHUfYugpZQtHC9S5lQWNyCL0"', 'Date': 'Thu, 09 Feb 2023 03:29:12 GMT', 'Via': '1.1 vegur'} 
+ body={"firstname":"Ana","lastname":"Ruiz","totalprice":111,"depositpaid":true,"bookingdates":{"checkin":"2021-02-05","checkout":"2022-03-20"},"additionalneeds":"Breakfast"} 
+ </msg>
+<msg timestamp="20230208 22:29:12.691" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20230208 22:29:12.105" endtime="20230208 22:29:12.691"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${json_object}</var>
+<arg>${response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230208 22:29:12.691" level="INFO">${json_object} = {'firstname': 'Ana', 'lastname': 'Ruiz', 'totalprice': 111, 'depositpaid': True, 'bookingdates': {'checkin': '2021-02-05', 'checkout': '2022-03-20'}, 'additionalneeds': 'Breakfast'}</msg>
+<status status="PASS" starttime="20230208 22:29:12.691" endtime="20230208 22:29:12.691"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${additionalneeds}</var>
+<arg>${json_object['additionalneeds']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230208 22:29:12.691" level="INFO">${additionalneeds} = Breakfast</msg>
+<status status="PASS" starttime="20230208 22:29:12.691" endtime="20230208 22:29:12.691"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${additionalneeds}</arg>
+<arg>Breakfast</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230208 22:29:12.691" endtime="20230208 22:29:12.691"/>
+</kw>
+<tag>CP003 - Validar que se hayan realizado los cambios en el campo "additionalneeds"</tag>
+<status status="PASS" starttime="20230208 22:29:12.105" endtime="20230208 22:29:12.691"/>
+</test>
+<doc>Pruebas automatizadas Booking_UpdateBooking</doc>
+<status status="PASS" starttime="20230208 22:29:10.244" endtime="20230208 22:29:12.691"/>
+</suite>
+<statistics>
+<total>
+<stat pass="3" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="1" fail="0" skip="0">CP001 - Validar que el método responda OK</stat>
+<stat pass="1" fail="0" skip="0">CP002 - Validar que se hayan realizado los cambios en el campo "firstname"</stat>
+<stat pass="1" fail="0" skip="0">CP003 - Validar que se hayan realizado los cambios en el campo "additionalneeds"</stat>
+</tag>
+<suite>
+<stat pass="3" fail="0" skip="0" id="s1" name="PUT UpdateBooking">PUT UpdateBooking</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
